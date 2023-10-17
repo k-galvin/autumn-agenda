@@ -3,12 +3,17 @@
 // to read or write data, they have to go through this service.
 
 import { db } from '../firebaseConfig'
-import { collection, query, getDocs, addDoc, orderBy, limit, Timestamp } from 'firebase/firestore'
+import { collection, query, getDocs, addDoc, deleteDoc, doc, orderBy, limit, Timestamp } from 'firebase/firestore'
 
 export async function createArticle({ title, body }) {
   const data = { title, body, date: Timestamp.now() }
   const docRef = await addDoc(collection(db, 'articles'), data)
   return { id: docRef.id, ...data }
+}
+
+export async function removeArticle(articleId) {
+  const articleRef = doc(db, 'articles', articleId)
+  await deleteDoc(articleRef)
 }
 
 // NOT FINISHED: This only gets the first 20 articles. In a real app,

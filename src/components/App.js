@@ -3,7 +3,7 @@ import Nav from './Nav.js'
 import Article from './Article.js'
 import ArticleEntry from './ArticleEntry.js'
 import { SignIn, SignOut, useAuthentication } from '../services/authService'
-import { fetchArticles, createArticle } from '../services/articleService'
+import { fetchArticles, createArticle, removeArticle } from '../services/articleService'
 import './App.css'
 
 export default function App() {
@@ -32,11 +32,26 @@ export default function App() {
     })
   }
 
+  function deleteArticle() {
+    if (article) {
+      removeArticle(article.id)
+      setArticle(null)
+      setArticles(articles.filter(a => a.id !== article.id))
+    }
+  }
+
+  function closeArticle() {
+    setArticle(null)
+  }
+
   return (
     <div className="App">
       <header>
-        Blog
+        <span onClick={closeArticle} style={{ cursor: 'pointer' }}>
+          AUTUMN AGENDA
+        </span>
         {user && <button onClick={() => setWriting(true)}>New Article</button>}
+        {user && article && <button onClick={deleteArticle}>Delete Article</button>}
         {!user ? <SignIn /> : <SignOut />}
       </header>
 

@@ -1,18 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&family=Jacques+Francois+Shadow&family=Josefin+Sans:wght@100;400&family=Open+Sans:wght@500&display=swap');
+
 .App {
   display: grid;
   grid-template-rows: min-content auto;
   grid-template-columns: 250px auto;
   height: 100vh;
   overflow: scroll;
+  font-family: 'Josefin Sans', sans;
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  background-color: firebrick;
-  color: blanchedalmond;
+  background-color: #e98604;
+  color: white;
   grid-column: 1 / span 2;
   padding: 10px 15px;
+  align-items: center;
 }
 
 form {
@@ -36,11 +40,17 @@ article {
 
 nav {
   background-color: #5c4033;
+  color: blanchedalmond;
 }
 
 nav p:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+article {
+  background-image: url('stowe.jpg');
+  background-size: cover;
 }
 
 article .date {
@@ -49,10 +59,26 @@ article .date {
 
 article .body {
   white-space: break-spaces;
+  background-color: white;
+  width: 25vw;
+  padding: 1em;
 }
 
 .error {
   background-color: red;
   color: gold;
   padding: 5px;
+}
+
+li {
+  padding: 0.2em;
+}
+
+button {
+  color: white;
+  background-color: firebrick;
+  border: solid white 0.2em;
+  border-radius: 1em;
+  padding: 0.5em;
+  font-family: 'Josefin Sans', sans;
 }
