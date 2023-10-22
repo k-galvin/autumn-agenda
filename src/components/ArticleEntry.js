@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function ArticleEntry({ addArticle }) {
+export default function ArticleEntry({ addArticle, cancelEntry }) {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [category, setCategory] = useState('all')
@@ -30,6 +30,7 @@ export default function ArticleEntry({ addArticle }) {
           <option value="lifestyle">Lifestyle</option>
         </select>
         <button type="submit">Create</button>
+        <button onClick={cancelEntry}>Cancel</button>
       </form>
     </div>
   )

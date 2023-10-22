@@ -3,23 +3,46 @@ import Nav from './Nav.js'
 import Article from './Article.js'
 import ArticleEntry from './ArticleEntry.js'
 import { SignIn, SignOut, useAuthentication } from '../services/authService'
-import { fetchArticles, createArticle, removeArticle } from '../services/articleService'
+import { fetchArticlesByCategory, createArticle, removeArticle } from '../services/articleService'
 import './App.css'
-import CategorySelect from './CategorySelect.js'
 
 export default function App() {
   const [articles, setArticles] = useState([])
   const [article, setArticle] = useState(null)
   const [writing, setWriting] = useState(false)
   const [category, setCategory] = useState('all')
+  const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
   const user = useAuthentication()
 
-  // Fetch all the articles once when a user logs in.
   useEffect(() => {
     if (user) {
-      fetchArticles().then(setArticles)
+      fetchArticlesByCategory(category).then(articles => {
+        setArticles(articles)
+
+        if (articles.length > 0) {
+          setArticle(articles[0])
+          setCurrentArticleIndex(0)
+        } else {
+          setArticle(null)
+          setCurrentArticleIndex(0)
+        }
+      })
     }
-  }, [user])
+  }, [user, category])
+
+  function navigateToNextArticle() {
+    if (currentArticleIndex < articles.length - 1) {
+      setCurrentArticleIndex(currentArticleIndex + 1)
+      setArticle(articles[currentArticleIndex + 1])
+    }
+  }
+
+  function navigateToPreviousArticle() {
+    if (currentArticleIndex > 0) {
+      setCurrentArticleIndex(currentArticleIndex - 1)
+      setArticle(articles[currentArticleIndex - 1])
+    }
+  }
 
   // Adds inputed article to "database" *then* to the internal React state.
   function addArticle({ title, body, category }) {
@@ -38,17 +61,18 @@ export default function App() {
       setArticle(null)
       setArticles(articles.filter(a => a.id !== article.id))
       setCategory('all')
+      setCurrentArticleIndex(0)
     }
   }
 
   // Closes the currently selected article.
   function closeArticle() {
     setArticle(null)
-    setCategory('all')
   }
 
   function handleCategoryChange(e) {
     setCategory(e.target.value)
+    setCurrentArticleIndex(0)
   }
 
   return (
@@ -59,13 +83,33 @@ export default function App() {
         </span>
         {user && <button onClick={() => setWriting(true)}>New Article</button>}
         {user && article && <button onClick={deleteArticle}>Delete Article</button>}
-        {user && <CategorySelect category={category} handleCategoryChange={handleCategoryChange} />}
+        <button onClick={navigateToPreviousArticle} disabled={currentArticleIndex === 0}>
+          Previous Article
+        </button>
+        <button onClick={navigateToNextArticle} disabled={currentArticleIndex === articles.length - 1}>
+          Next Article
+        </button>
         {!user ? <SignIn /> : <SignOut />}
       </header>
 
-      {!user ? '' : <Nav articles={articles} setArticle={setArticle} category={category} />}
+      {!user ? (
+        ''
+      ) : (
+        <Nav
+          articles={articles}
+          setArticle={setArticle}
+          category={category}
+          handleCategoryChange={handleCategoryChange}
+        />
+      )}
 
-      {!user ? '' : writing ? <ArticleEntry addArticle={addArticle} /> : <Article article={article} />}
+      {!user ? (
+        ''
+      ) : writing ? (
+        <ArticleEntry addArticle={addArticle} cancelEntry={() => setWriting(false)} />
+      ) : (
+        <Article article={article} />
+      )}
     </div>
   )
 }
