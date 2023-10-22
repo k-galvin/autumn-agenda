@@ -1,13 +1,4 @@
 export default function Article({ article }) {
-  let listItems = ''
-
-  if (article) {
-    const lines = article.body.split('\n')
-
-    // Map over the array of lines to create a list of React elements
-    listItems = lines.map((line, index) => <li key={index}>{line}</li>)
-  }
-
   return (
     <article>
       {!article ? (
@@ -19,8 +10,9 @@ export default function Article({ article }) {
       ) : (
         <section>
           <h2>{article.title}</h2>
+          {article.category != 'all' ? <p>{article.category}</p> : ''}
           <p className="date">{`Posted: ${article.date.toDate().toString().slice(0, 10)}`}</p>
-          <p className="body">{listItems}</p>
+          <p className="body">{article.body}</p>
         </section>
       )}
     </article>

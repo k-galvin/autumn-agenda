@@ -41,6 +41,7 @@ article {
 nav {
   background-color: #5c4033;
   color: blanchedalmond;
+  padding: 1em;
 }
 
 nav p:hover {

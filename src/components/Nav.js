@@ -1,9 +1,11 @@
-export default function Nav({ articles, setArticle }) {
+export default function Nav({ articles, setArticle, category }) {
+  const filteredArticles = articles.filter(article => category === 'all' || article.category === category)
+
   return (
     <nav>
-      {!articles
+      {!filteredArticles.length
         ? 'No articles'
-        : articles.map(a => (
+        : filteredArticles.map(a => (
             <p key={a.id} onClick={() => setArticle(a)}>
               {a.title}
             </p>

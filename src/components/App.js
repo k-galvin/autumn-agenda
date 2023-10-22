@@ -5,43 +5,50 @@ import ArticleEntry from './ArticleEntry.js'
 import { SignIn, SignOut, useAuthentication } from '../services/authService'
 import { fetchArticles, createArticle, removeArticle } from '../services/articleService'
 import './App.css'
+import CategorySelect from './CategorySelect.js'
 
 export default function App() {
   const [articles, setArticles] = useState([])
   const [article, setArticle] = useState(null)
   const [writing, setWriting] = useState(false)
+  const [category, setCategory] = useState('all')
   const user = useAuthentication()
 
-  // This is a trivial app, so just fetch all the articles only when
-  // a user logs in. A real app would do pagination. Note that
-  // "fetchArticles" is what gets the articles from the service and
-  // then "setArticles" writes them into the React state.
+  // Fetch all the articles once when a user logs in.
   useEffect(() => {
     if (user) {
       fetchArticles().then(setArticles)
     }
   }, [user])
 
-  // Update the "database" *then* update the internal React state. These
-  // two steps are definitely necessary.
-  function addArticle({ title, body }) {
-    createArticle({ title, body }).then(article => {
+  // Adds inputed article to "database" *then* to the internal React state.
+  function addArticle({ title, body, category }) {
+    createArticle({ title, body, category }).then(article => {
       setArticle(article)
       setArticles([article, ...articles])
       setWriting(false)
+      setCategory(category)
     })
   }
 
+  // Removes selected article from the "database" and updates the internal React state.
   function deleteArticle() {
     if (article) {
       removeArticle(article.id)
       setArticle(null)
       setArticles(articles.filter(a => a.id !== article.id))
+      setCategory('all')
     }
   }
 
+  // Closes the currently selected article.
   function closeArticle() {
     setArticle(null)
+    setCategory('all')
+  }
+
+  function handleCategoryChange(e) {
+    setCategory(e.target.value)
   }
 
   return (
@@ -52,10 +59,11 @@ export default function App() {
         </span>
         {user && <button onClick={() => setWriting(true)}>New Article</button>}
         {user && article && <button onClick={deleteArticle}>Delete Article</button>}
+        {user && <CategorySelect category={category} handleCategoryChange={handleCategoryChange} />}
         {!user ? <SignIn /> : <SignOut />}
       </header>
 
-      {!user ? '' : <Nav articles={articles} setArticle={setArticle} />}
+      {!user ? '' : <Nav articles={articles} setArticle={setArticle} category={category} />}
 
       {!user ? '' : writing ? <ArticleEntry addArticle={addArticle} /> : <Article article={article} />}
     </div>
