@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
-import Nav from './Nav.js'
 import Article from './Article.js'
 import ArticleEntry from './ArticleEntry.js'
-import { SignIn, SignOut, useAuthentication } from '../services/authService'
+import { useAuthentication } from '../services/authService'
 import { fetchArticlesByCategory, createArticle, removeArticle, uploadImageToStorage } from '../services/articleService'
 import './App.css'
+import Header from './Header.js'
 
 export default function App() {
   const [articles, setArticles] = useState([])
   const [article, setArticle] = useState(null)
   const [writing, setWriting] = useState(false)
+  const [reading, setReading] = useState(false)
   const [category, setCategory] = useState('all')
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
   const user = useAuthentication()
@@ -69,48 +70,52 @@ export default function App() {
 
   // Closes the currently selected article.
   function closeArticle() {
-    setArticle(null)
+    setReading(false)
   }
 
-  function handleCategoryChange(e) {
-    setCategory(e.target.value)
+  // Filters articles and displays those in the selected category
+  function selectCategory(category) {
+    setCategory(category)
+    setReading(true)
     setCurrentArticleIndex(0)
   }
 
   return (
     <div className="App">
-      <header>
-        <span onClick={closeArticle} style={{ cursor: 'pointer' }}>
-          AUTUMN AGENDA
-        </span>
-        {user && <button onClick={() => setWriting(true)}>New Article</button>}
-        {user && article && <button onClick={deleteArticle}>Delete Article</button>}
-        <button onClick={navigateToPreviousArticle} disabled={currentArticleIndex === 0}>
-          Previous Article
-        </button>
-        <button onClick={navigateToNextArticle} disabled={currentArticleIndex === articles.length - 1}>
-          Next Article
-        </button>
-        {!user ? <SignIn /> : <SignOut />}
-      </header>
-
-      {!user ? (
-        ''
-      ) : (
-        <Nav
-          articles={articles}
-          setArticle={setArticle}
-          category={category}
-          handleCategoryChange={handleCategoryChange}
-        />
-      )}
+      {/* Header that contains blog name, article categories, and user login */}
+      <Header
+        article={article}
+        closeArticle={closeArticle}
+        selectCategory={selectCategory}
+        deleteArticle={deleteArticle}
+        user={user}
+      />
 
       {!user ? (
         ''
       ) : writing ? (
+        // Article entry that displays when new article button is clicked
         <ArticleEntry addArticle={addArticle} cancelEntry={() => setWriting(false)} />
+      ) : reading ? (
+        // Article content that shows when an article or category is selected
+        <Article
+          article={article}
+          navigateToNextArticle={navigateToNextArticle}
+          navigateToPreviousArticle={navigateToPreviousArticle}
+          currentArticleIndex={currentArticleIndex}
+          articles={articles}
+          setArticle={setArticle}
+          setReading={setReading}
+        />
       ) : (
-        <Article article={article} />
+        ''
+      )}
+
+      {/* Create new article button that displays when user is logged in */}
+      {user && (
+        <button className="header-button" onClick={() => setWriting(true)}>
+          New Article
+        </button>
       )}
     </div>
   )

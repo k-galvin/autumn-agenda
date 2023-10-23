@@ -1,13 +1,10 @@
-import CategorySelect from './CategorySelect.js'
-
-export default function Nav({ articles, setArticle, category, handleCategoryChange }) {
+export default function Nav({ articles, setArticle, setReading }) {
   return (
     <nav>
-      <CategorySelect category={category} handleCategoryChange={handleCategoryChange} />
       {!articles
         ? 'No articles'
         : articles.map(a => (
-            <p key={a.id} onClick={() => setArticle(a)}>
+            <p key={a.id} onClick={() => setArticle(a) & setReading(true)}>
               {a.title}
             </p>
           ))}
