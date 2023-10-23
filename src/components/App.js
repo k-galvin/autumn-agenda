@@ -3,7 +3,7 @@ import Nav from './Nav.js'
 import Article from './Article.js'
 import ArticleEntry from './ArticleEntry.js'
 import { SignIn, SignOut, useAuthentication } from '../services/authService'
-import { fetchArticlesByCategory, createArticle, removeArticle } from '../services/articleService'
+import { fetchArticlesByCategory, createArticle, removeArticle, uploadImageToStorage } from '../services/articleService'
 import './App.css'
 
 export default function App() {
@@ -45,10 +45,12 @@ export default function App() {
   }
 
   // Adds inputed article to "database" *then* to the internal React state.
-  function addArticle({ title, body, category }) {
-    createArticle({ title, body, category }).then(article => {
-      setArticle(article)
-      setArticles([article, ...articles])
+  async function addArticle({ title, body, category, file }) {
+    const imageUrl = await uploadImageToStorage(file)
+
+    createArticle({ title, body, category, imageUrl }).then(newArticle => {
+      setArticle(newArticle)
+      setArticles([newArticle, ...articles])
       setWriting(false)
       setCategory(category)
     })

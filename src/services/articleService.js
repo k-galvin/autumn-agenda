@@ -1,10 +1,11 @@
 // This service completely hides the data store from the rest of the app.
 
 import { db } from '../firebaseConfig'
-import { collection, query, getDocs, addDoc, deleteDoc, doc, orderBy, limit, Timestamp } from 'firebase/firestore'
+import { collection, query, getDocs, addDoc, deleteDoc, doc, orderBy, Timestamp } from 'firebase/firestore'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
-export async function createArticle({ title, body, category }) {
-  const data = { title, body, date: Timestamp.now(), category }
+export async function createArticle({ title, body, category, imageUrl }) {
+  const data = { title, body, date: Timestamp.now(), category, imageUrl }
   const docRef = await addDoc(collection(db, 'articles'), data)
   return { id: docRef.id, ...data }
 }
@@ -31,4 +32,14 @@ export async function fetchArticleByIndex(category, index) {
   } else {
     return null
   }
+}
+
+export async function uploadImageToStorage(file) {
+  if (file) {
+    const storage = getStorage()
+    const storageRef = ref(storage, 'images/' + file.name)
+    await uploadBytes(storageRef, file)
+    return getDownloadURL(storageRef)
+  }
+  return null
 }
