@@ -2,11 +2,13 @@
 
 .App {
   display: grid;
-  grid-template-rows: min-content auto;
-  grid-template-columns: 250px auto;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-columns: 20% 60% 20%;
   height: 100vh;
   overflow: scroll;
   font-family: 'Josefin Sans', sans;
+  background-image: url('stowe.jpg');
+  background-size: cover;
 }
 
 header {
@@ -14,12 +16,12 @@ header {
   justify-content: space-between;
   background-color: #e98604;
   color: white;
-  grid-column: 1 / span 2;
+  grid-column: 1 / span 5;
   padding: 10px 15px;
   align-items: center;
 }
 
-form {
+/* form {
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -30,18 +32,20 @@ form input,
 form textarea {
   margin-bottom: 10px;
   width: 300px;
-}
+} */
 
-nav,
+/* nav,
 article {
   height: 100%;
   padding: 10px;
-}
+} */
 
 nav {
   background-color: #5c4033;
   color: blanchedalmond;
   padding: 1em;
+  grid-row: 1 / span 7;
+  grid-column: 1;
 }
 
 nav p:hover {
@@ -50,8 +54,31 @@ nav p:hover {
 }
 
 article {
-  background-image: url('stowe.jpg');
-  background-size: cover;
+  grid-row: 2 / span 4;
+  grid-column: 1 / span 5;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 90% 10%;
+}
+
+.topic-page {
+  grid-row: 2 / span 4;
+  grid-column: 1 / span 5;
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-columns: 18% 40% 40%;
+}
+
+.article-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.article-body {
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
 }
 
 article .date {
@@ -61,7 +88,6 @@ article .date {
 article .body {
   white-space: break-spaces;
   background-color: white;
-  width: 25vw;
   padding: 1em;
 }
 
@@ -71,28 +97,41 @@ article .body {
   padding: 5px;
 }
 
-li {
-  padding: 0.2em;
-}
-
-.header-button {
-  color: white;
-  background-color: firebrick;
-  border: solid white 0.2em;
-  border-radius: 1em;
-  padding: 0.5em;
-  font-family: 'Josefin Sans', sans;
-}
-
-.article-body {
+.top-row {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .material-icon-button {
-  background: transparent;
+  background: white;
   border: none;
   cursor: pointer;
   font-size: 24px;
-  color: white;
+  color: black;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-button {
+}
+
+.close-button {
+}
+
+.delete-button {
+}
+
+.article-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.article-image {
+  max-width: 25em;
+  max-height: 25em;
 }

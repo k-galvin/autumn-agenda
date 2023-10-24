@@ -5,13 +5,18 @@ import { useAuthentication } from '../services/authService'
 import { fetchArticlesByCategory, createArticle, removeArticle, uploadImageToStorage } from '../services/articleService'
 import './App.css'
 import Header from './Header.js'
+import Login from './Login.js'
+import RecipePage from './RecipePage.js'
+import LifestylePage from './LifestylePage.js'
+import AllPage from './AllPage.js'
+import HomePage from './HomePage.js'
 
 export default function App() {
   const [articles, setArticles] = useState([])
   const [article, setArticle] = useState(null)
   const [writing, setWriting] = useState(false)
   const [reading, setReading] = useState(false)
-  const [category, setCategory] = useState('all')
+  const [category, setCategory] = useState('none')
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
   const user = useAuthentication()
 
@@ -68,31 +73,13 @@ export default function App() {
     }
   }
 
-  // Closes the currently selected article.
-  function closeArticle() {
-    setReading(false)
-  }
-
-  // Filters articles and displays those in the selected category
-  function selectCategory(category) {
-    setCategory(category)
-    setReading(true)
-    setCurrentArticleIndex(0)
-  }
-
   return (
     <div className="App">
       {/* Header that contains blog name, article categories, and user login */}
-      <Header
-        article={article}
-        closeArticle={closeArticle}
-        selectCategory={selectCategory}
-        deleteArticle={deleteArticle}
-        user={user}
-      />
+      <Header article={article} setCategory={setCategory} user={user} setReading={setReading} />
 
       {!user ? (
-        ''
+        <Login />
       ) : writing ? (
         // Article entry that displays when new article button is clicked
         <ArticleEntry addArticle={addArticle} cancelEntry={() => setWriting(false)} />
@@ -105,18 +92,28 @@ export default function App() {
           currentArticleIndex={currentArticleIndex}
           articles={articles}
           setArticle={setArticle}
+          deleteArticle={deleteArticle}
           setReading={setReading}
+          setWriting={setWriting}
         />
+      ) : category === 'recipes' ? (
+        <RecipePage articles={articles} setArticle={setArticle} setReading={setReading} />
+      ) : category === 'lifestyle' ? (
+        <LifestylePage articles={articles} setArticle={setArticle} setReading={setReading} />
+      ) : category === 'all' ? (
+        <AllPage articles={articles} setArticle={setArticle} setReading={setReading} />
+      ) : category === 'none' ? (
+        <HomePage articles={articles} setArticle={setArticle} setReading={setReading} />
       ) : (
         ''
       )}
 
       {/* Create new article button that displays when user is logged in */}
-      {user && (
-        <button className="header-button" onClick={() => setWriting(true)}>
+      {/* {user && (
+        <button className="create-button" onClick={() => setWriting(true)}>
           New Article
         </button>
-      )}
+      )} */}
     </div>
   )
 }
