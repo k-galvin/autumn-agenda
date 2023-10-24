@@ -8,7 +8,6 @@ export default function Header({ setCategory, user, setReading }) {
           setCategory('none')
           setReading(false)
         }}
-        style={{ cursor: 'pointer' }}
       >
         AUTUMN AGENDA
       </span>
@@ -17,7 +16,6 @@ export default function Header({ setCategory, user, setReading }) {
           setCategory('recipes')
           setReading(false)
         }}
-        style={{ cursor: 'pointer' }}
       >
         Recipes
       </span>
@@ -26,7 +24,6 @@ export default function Header({ setCategory, user, setReading }) {
           setCategory('lifestyle')
           setReading(false)
         }}
-        style={{ cursor: 'pointer' }}
       >
         Lifestyle
       </span>
@@ -35,7 +32,6 @@ export default function Header({ setCategory, user, setReading }) {
           setCategory('all')
           setReading(false)
         }}
-        style={{ cursor: 'pointer' }}
       >
         All Articles
       </span>

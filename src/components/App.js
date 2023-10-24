@@ -82,7 +82,7 @@ export default function App() {
         <Login />
       ) : writing ? (
         // Article entry that displays when new article button is clicked
-        <ArticleEntry addArticle={addArticle} cancelEntry={() => setWriting(false)} />
+        <ArticleEntry addArticle={addArticle} setWriting={setWriting} />
       ) : reading ? (
         // Article content that shows when an article or category is selected
         <Article

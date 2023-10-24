@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function ArticleEntry({ addArticle, cancelEntry }) {
+export default function ArticleEntry({ addArticle, setWriting }) {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [category, setCategory] = useState('all')
@@ -29,7 +29,15 @@ export default function ArticleEntry({ addArticle, cancelEntry }) {
   }
 
   return (
-    <div>
+    <div className="article-entry">
+      <button
+        className="close-button material-icon-button"
+        onClick={() => {
+          setWriting(false)
+        }}
+      >
+        <i className="material-icons">close</i>
+      </button>
       <form onSubmit={submit}>
         {error && <p className="error">{error}</p>}
         Title
@@ -44,7 +52,6 @@ export default function ArticleEntry({ addArticle, cancelEntry }) {
         </select>
         {imageUrl && <img src={imageUrl} alt="blog-img" />}
         <button type="submit">Create</button>
-        <button onClick={cancelEntry}>Cancel</button>
       </form>
     </div>
   )
