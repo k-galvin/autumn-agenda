@@ -10,20 +10,26 @@ import RecipePage from './RecipePage.js'
 import LifestylePage from './LifestylePage.js'
 import AllPage from './AllPage.js'
 import HomePage from './HomePage.js'
+import { LoadingPage } from './LoadingPage.js'
 
 export default function App() {
   const [articles, setArticles] = useState([])
-  const [article, setArticle] = useState(null)
+  const [article, setArticle] = useState([])
   const [writing, setWriting] = useState(false)
   const [reading, setReading] = useState(false)
-  const [category, setCategory] = useState('none')
+  const [category, setCategory] = useState('all')
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
+  const [currentPage, setCurrentPage] = useState('home')
+  const [loading, setLoading] = useState(false)
   const user = useAuthentication()
 
   useEffect(() => {
     if (user) {
+      setLoading(true)
+
       fetchArticlesByCategory(category).then(articles => {
         setArticles(articles)
+        setLoading(false)
 
         if (articles.length > 0) {
           setArticle(articles[0])
@@ -76,7 +82,13 @@ export default function App() {
   return (
     <div className="App">
       {/* Header that contains blog name, article categories, and user login */}
-      <Header article={article} setCategory={setCategory} user={user} setReading={setReading} />
+      <Header
+        article={article}
+        setCategory={setCategory}
+        user={user}
+        setReading={setReading}
+        setCurrentPage={setCurrentPage}
+      />
 
       {!user ? (
         <Login />
@@ -95,25 +107,19 @@ export default function App() {
           deleteArticle={deleteArticle}
           setReading={setReading}
           setWriting={setWriting}
+          loading={loading}
         />
-      ) : category === 'recipes' ? (
+      ) : currentPage === 'recipes' ? (
         <RecipePage articles={articles} setArticle={setArticle} setReading={setReading} />
-      ) : category === 'lifestyle' ? (
+      ) : currentPage === 'lifestyle' ? (
         <LifestylePage articles={articles} setArticle={setArticle} setReading={setReading} />
-      ) : category === 'all' ? (
+      ) : currentPage === 'home' ? (
+        <HomePage articles={articles} setArticle={setArticle} setReading={setReading} setCurrentPage={setCurrentPage} />
+      ) : currentPage === 'all' ? (
         <AllPage articles={articles} setArticle={setArticle} setReading={setReading} />
-      ) : category === 'none' ? (
-        <HomePage articles={articles} setArticle={setArticle} setReading={setReading} />
       ) : (
         ''
       )}
-
-      {/* Create new article button that displays when user is logged in */}
-      {/* {user && (
-        <button className="create-button" onClick={() => setWriting(true)}>
-          New Article
-        </button>
-      )} */}
     </div>
   )
 }

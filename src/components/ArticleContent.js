@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 export default function ArticleContent({
   article,
   navigateToNextArticle,
@@ -8,6 +10,8 @@ export default function ArticleContent({
   deleteArticle,
   setWriting
 }) {
+  const [imageLoading, setImageLoading] = useState(true)
+
   let articleLines = ''
 
   if (article) {
@@ -15,6 +19,11 @@ export default function ArticleContent({
 
     // Map over the array of lines to create a list of React elements
     articleLines = lines.map((line, index) => <p key={index}>{line}</p>)
+  }
+
+  const handleImageLoad = () => {
+    // Called when the image has finished loading
+    setImageLoading(false)
   }
 
   return (
@@ -45,7 +54,17 @@ export default function ArticleContent({
 
       <div className="article-body">
         {/* Article Image */}
-        {article.imageUrl && <img className="article-image" src={article.imageUrl} alt="blog-img" />}
+        {article.imageUrl && (
+          <div className="article-image-container">
+            {imageLoading && <p>Loading image...</p>}
+            <img
+              className={`article-image ${imageLoading ? 'hidden' : ''}`}
+              src={article.imageUrl}
+              alt="blog-img"
+              onLoad={handleImageLoad}
+            />
+          </div>
+        )}
         {/* Previous Article Button */}
         <button
           className="back-button material-icon-button"
@@ -56,7 +75,7 @@ export default function ArticleContent({
         </button>
 
         {/* Article Body */}
-        <p className="article-text">{articleLines}</p>
+        <div className="article-text">{articleLines}</div>
 
         {/* Next Article Button */}
         <button
@@ -66,12 +85,16 @@ export default function ArticleContent({
         >
           <i className="material-icons">chevron_right</i>
         </button>
-      </div>
 
-      {/* Delete and Create Article Buttons */}
-      <div className="buttons">
-        <button onClick={deleteArticle}>Delete Article</button>
-        <button onClick={() => setWriting(true)}>New Article</button>
+        {/* Delete Article Buttons */}
+        <button className="delete-button" onClick={deleteArticle}>
+          Delete Article
+        </button>
+
+        {/* Create Article Buttons */}
+        <button className="create-button" onClick={() => setWriting(true)}>
+          New Article
+        </button>
       </div>
     </article-content>
   )

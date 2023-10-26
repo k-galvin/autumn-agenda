@@ -2,21 +2,22 @@
 
 .App {
   display: grid;
-  grid-template-rows: 10% auto;
+  grid-template-rows: 94px auto;
   height: 100vh;
   overflow: scroll;
   font-family: 'Josefin Sans', sans;
-  background-image: url('stowe.jpg');
   background-size: cover;
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto auto 30%;
   background-color: #e98604;
   color: white;
   padding: 10px 15px;
   align-items: center;
+  overflow: hidden;
+  font-size: 1.2em;
 }
 
 header span:hover {
@@ -44,7 +45,7 @@ form textarea {
   padding: 5px;
 }
 
-nav {
+.nav {
   background-color: #5c4033;
   color: blanchedalmond;
   padding: 1em;
@@ -71,44 +72,64 @@ article {
 }
 
 .material-icon-button {
-  background: white;
   border: none;
   cursor: pointer;
   font-size: 24px;
   color: black;
+  background-color: transparent;
 }
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
+.material-icon {
+  font-size: 50px;
+}
+
+.delete-button,
+.create-button {
+  background-color: white;
+  color: red;
+  border: solid red;
+  border-radius: 1em;
+  font-size: 1em;
+  max-height: 50px;
+  max-width: 120px;
   grid-row: 3;
+  align-self: flex-end;
+}
+
+.create-button {
+  grid-column: 5;
+}
+
+.delete-button {
+  grid-column: 1;
 }
 
 article-content {
   display: grid;
-  grid-template-rows: 15% auto 5%;
+  grid-template-rows: 0.5fr auto auto;
 }
 
 .top-row {
   display: grid;
   grid-template-columns: 5% auto auto auto auto auto 5%;
-  grid-template-rows: 30% auto;
+  grid-template-rows: 20% auto;
 }
 
 .article-heading {
   grid-column: 4;
-  grid-row: 1 / span 2;
-  background-color: white;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1em;
+  margin-top: 1em;
+  padding: 0;
+  justify-content: flex-start;
 }
 
 .close-button {
   grid-column: 7;
   grid-row: 1;
-  background-color: white;
+  font-size: 30px;
 }
 
 .back-button {
@@ -119,20 +140,23 @@ article-content {
 .next-button {
   grid-column: 5;
   grid-row: 1;
+
+  .i {
+    font-size: 7em;
+  }
 }
 
 .article-body {
   grid-row: 2;
   display: grid;
-  grid-template-columns: 5% 30% 30% 30% 5%;
-  grid-template-rows: 5% auto 5% auto auto;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 0.1fr auto auto;
   justify-items: center;
 }
 
 .article-text {
   grid-column: 3;
-  grid-row: 3 / span 2;
-  background-color: white;
+  grid-row: 2;
   padding: 0.5em;
   max-width: 20em;
 }
@@ -143,11 +167,15 @@ article-content {
 }
 
 .article-image {
-  grid-row: 2;
-  grid-column: 3;
   max-height: 20em;
   max-width: 20em;
-  margin-top: 1em;
+  border: solid #5c4033 1em;
+}
+
+.article-image-container {
+  grid-row: 3;
+  grid-column: 3;
+  justify-self: center;
 }
 
 .article-entry {
@@ -164,22 +192,27 @@ article-content {
 
 .home {
   display: grid;
-  grid-template-rows: 10% 10% 10% auto auto auto;
-  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-columns: auto;
   justify-content: center;
-  justify-items: center;
+  align-content: start;
 }
 
 .home-body {
   grid-row: 2;
   grid-column: 2;
-  background-color: white;
+  margin: 0;
+  justify-self: center;
+  padding: 1em;
 }
 
 .home-title {
   grid-row: 1;
   grid-column: 2;
-  background-color: white;
+  margin-top: 1em;
+  margin-bottom: 0;
+  justify-self: center;
+  padding: 1em;
 }
 
 .home-links {
@@ -187,24 +220,96 @@ article-content {
   grid-column: 2;
   display: flex;
   justify-content: space-evenly;
-  background-color: white;
+}
+
+.home-img {
+  max-width: 200px;
+  grid-row: 4;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.home-links p:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .login {
   display: grid;
-  grid-template-rows: 10% 10% 5% auto;
-  justify-content: center;
+  grid-template-rows: 15% 10% 5% auto;
   justify-items: center;
 }
 
 .login-title {
+  align-self: flex-end;
   grid-row: 1;
 }
 
 .login-label {
+  align-self: flex-start;
   grid-row: 2;
 }
 
 .login-button {
   grid-row: 3;
+  background-color: red;
+  color: white;
+  border: solid white;
+  border-radius: 1em;
+  font-size: 1em;
+  align-self: flex-start;
+}
+
+.login-page-button {
+  grid-row: 3;
+  grid-column: 1;
+  background-color: white;
+  color: red;
+  border: solid red;
+  border-radius: 1em;
+  font-size: 1em;
+  align-self: center;
+}
+
+img.falling-leaf {
+  transition: transform 0.5s ease;
+}
+
+img.falling-leaf:hover {
+  animation: leaf-wave 3s linear;
+}
+
+@keyframes leaf-wave {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(30vh) rotate(-15deg);
+  }
+  50% {
+    transform: translateY(60vh) rotate(0deg);
+  }
+}
+
+.header-item {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.header-links {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.header-sign-in-button {
+  justify-self: right;
+  grid-column: 3;
+}
+
+.nav-item {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

@@ -10,11 +10,12 @@ export default function Article({
   setArticle,
   deleteArticle,
   setReading,
-  setWriting
+  setWriting,
+  loading
 }) {
   return (
     <article>
-      <Nav articles={articles} setArticle={setArticle} setReading={setReading} />
+      <Nav articles={articles} setArticle={setArticle} setReading={setReading} loading={loading} />
 
       <ArticleContent
         className="article-content"
@@ -26,6 +27,7 @@ export default function Article({
         setReading={setReading}
         deleteArticle={deleteArticle}
         setWriting={setWriting}
+        loading={loading}
       />
     </article>
   )

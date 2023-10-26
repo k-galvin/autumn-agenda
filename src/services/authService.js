@@ -3,14 +3,22 @@ import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 
 export function SignIn() {
-  return <button onClick={() => signInWithPopup(auth, new GoogleAuthProvider())}>Sign In</button>
+  return (
+    <div className="sign-in">
+      <button className="login-button" onClick={() => signInWithPopup(auth, new GoogleAuthProvider())}>
+        Sign In
+      </button>
+    </div>
+  )
 }
 
 export function SignOut() {
   return (
-    <div>
+    <div className="sign-in">
       Hello, {auth.currentUser.displayName} &nbsp;
-      <button onClick={() => signOut(auth)}>Sign Out</button>
+      <button className="login-button" onClick={() => signOut(auth)}>
+        Sign Out
+      </button>
     </div>
   )
 }
