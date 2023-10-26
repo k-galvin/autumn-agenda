@@ -7,6 +7,8 @@
   overflow: scroll;
   font-family: 'Josefin Sans', sans;
   background-size: cover;
+  background-color: bisque;
+  color: #5c4033;
 }
 
 header {
@@ -58,17 +60,34 @@ nav p:hover {
 }
 
 article {
-  grid-row: 2 / span 1;
+  grid-row: 2;
   display: grid;
   grid-template-columns: 20% auto;
   grid-template-rows: 100%;
 }
 
 .topic-page {
-  grid-row: 2 / span 1;
+  grid-row: 2;
   display: grid;
   grid-template-columns: 20% auto;
   grid-template-rows: 100%;
+}
+
+.topic-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topic-page-title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.topic-page-img {
+  max-width: 40vw;
+  max-height: 40vh;
+  margin-top: 1em;
 }
 
 .material-icon-button {
@@ -184,18 +203,14 @@ article-content {
   grid-template-columns: auto auto auto auto auto auto 5%;
 }
 
-.topic-page-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .home {
   display: grid;
   grid-template-rows: auto auto auto auto auto;
   grid-template-columns: auto;
   justify-content: center;
   align-content: start;
+  background-image: url('stowe.jpg');
+  background-size: cover;
 }
 
 .home-body {
@@ -213,6 +228,10 @@ article-content {
   margin-bottom: 0;
   justify-self: center;
   padding: 1em;
+}
+
+.home-element-inner {
+  background-color: white;
 }
 
 .home-links {
@@ -275,7 +294,7 @@ img.falling-leaf {
   transition: transform 0.5s ease;
 }
 
-img.falling-leaf:hover {
+img.falling-leaf:active {
   animation: leaf-wave 3s linear;
 }
 
