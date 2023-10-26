@@ -1,17 +1,5 @@
-export default function Nav({ articles, setArticle, setReading, loading }) {
-  if (loading) {
-    return (
-      <div className="nav">
-        <p>Loading...</p>
-      </div>
-    )
-  }
-
-  return loading ? (
-    <div className="nav">
-      <p>Loading...</p>
-    </div>
-  ) : (
+export default function Nav({ articles, setArticle, setReading }) {
+  return (
     <nav className="nav">
       {!articles
         ? 'No articles'

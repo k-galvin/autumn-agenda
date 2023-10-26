@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import LoadingImage from './LoadingImage'
 
 export default function ArticleContent({
   article,
@@ -10,8 +10,6 @@ export default function ArticleContent({
   deleteArticle,
   setWriting
 }) {
-  const [imageLoading, setImageLoading] = useState(true)
-
   let articleLines = ''
 
   if (article) {
@@ -19,11 +17,6 @@ export default function ArticleContent({
 
     // Map over the array of lines to create a list of React elements
     articleLines = lines.map((line, index) => <p key={index}>{line}</p>)
-  }
-
-  const handleImageLoad = () => {
-    // Called when the image has finished loading
-    setImageLoading(false)
   }
 
   return (
@@ -55,15 +48,12 @@ export default function ArticleContent({
       <div className="article-body">
         {/* Article Image */}
         {article.imageUrl && (
-          <div className="article-image-container">
-            {imageLoading && <p>Loading image...</p>}
-            <img
-              className={`article-image ${imageLoading ? 'hidden' : ''}`}
-              src={article.imageUrl}
-              alt="blog-img"
-              onLoad={handleImageLoad}
-            />
-          </div>
+          <LoadingImage
+            containerClassName={'article-image-container'}
+            imgClassName={'article-image'}
+            src={article.imageUrl}
+            alt="blog-img"
+          />
         )}
         {/* Previous Article Button */}
         <button

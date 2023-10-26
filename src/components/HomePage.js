@@ -1,4 +1,6 @@
-export default function HomePage({ articles, setArticle, setReading, setCurrentPage, imagesLoaded, handleImagesLoad }) {
+import LoadingImage from './LoadingImage'
+
+export default function HomePage({ articles, setArticle, setReading, setCurrentPage, handleImagesLoad }) {
   return (
     <div className="home">
       <h1 className="home-title">
@@ -20,7 +22,13 @@ export default function HomePage({ articles, setArticle, setReading, setCurrentP
               </span>
             ))}
       </div>
-      <img className="home-img falling-leaf" src="/fall-leaf.png" alt="fall leaf" onLoad={handleImagesLoad}></img>
+      <LoadingImage
+        containerClassName={'home-img-container'}
+        imgClassName={'falling-leaf'}
+        src="/fall-leaf.png"
+        alt="fall leaf"
+      />
+      {/* <img className="home-img falling-leaf" src="/fall-leaf.png" alt="fall leaf" onLoad={handleImagesLoad}></img> */}
     </div>
   )
 }
