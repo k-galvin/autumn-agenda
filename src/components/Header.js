@@ -1,15 +1,14 @@
 import { SignIn, SignOut } from '../services/authService'
 
-export default function Header({ setCategory, user, setReading, setCurrentPage }) {
+export default function Header({ setCategory, user, setReading }) {
   return (
     <header>
       <div className="header-links">
         <span
           className="header-item"
           onClick={() => {
-            setCategory('all')
+            setCategory('none')
             setReading(false)
-            setCurrentPage('home')
           }}
         >
           AUTUMN AGENDA
@@ -19,7 +18,6 @@ export default function Header({ setCategory, user, setReading, setCurrentPage }
           onClick={() => {
             setCategory('recipes')
             setReading(false)
-            setCurrentPage('recipes')
           }}
         >
           Recipes
@@ -29,7 +27,6 @@ export default function Header({ setCategory, user, setReading, setCurrentPage }
           onClick={() => {
             setCategory('lifestyle')
             setReading(false)
-            setCurrentPage('lifestyle')
           }}
         >
           Lifestyle
@@ -39,7 +36,6 @@ export default function Header({ setCategory, user, setReading, setCurrentPage }
           onClick={() => {
             setCategory('all')
             setReading(false)
-            setCurrentPage('all')
           }}
         >
           All Articles

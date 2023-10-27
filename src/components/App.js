@@ -1,25 +1,30 @@
 import { useEffect, useState } from 'react'
+import { useAuthentication } from '../services/authService'
+import {
+  createArticle,
+  removeArticle,
+  fetchAllArticles,
+  filterArticlesByCategory,
+  uploadImageToStorage
+} from '../services/articleService'
+
+import './App.css'
+import AllPage from './AllPage.js'
 import Article from './Article.js'
 import ArticleEntry from './ArticleEntry.js'
-import { useAuthentication } from '../services/authService'
-import { fetchArticlesByCategory, createArticle, removeArticle, uploadImageToStorage } from '../services/articleService'
-import './App.css'
 import Header from './Header.js'
+import HomePage from './HomePage.js'
+import LifestylePage from './LifestylePage.js'
 import Login from './Login.js'
 import RecipePage from './RecipePage.js'
-import LifestylePage from './LifestylePage.js'
-import AllPage from './AllPage.js'
-import HomePage from './HomePage.js'
-import { LoadingPage } from './LoadingPage.js'
 
 export default function App() {
   const [articles, setArticles] = useState([])
   const [article, setArticle] = useState([])
   const [writing, setWriting] = useState(false)
   const [reading, setReading] = useState(false)
-  const [category, setCategory] = useState('all')
+  const [category, setCategory] = useState('none')
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
-  const [currentPage, setCurrentPage] = useState('home')
   const [loading, setLoading] = useState(false)
   const user = useAuthentication()
 
@@ -27,9 +32,8 @@ export default function App() {
     if (user) {
       setLoading(true)
 
-      fetchArticlesByCategory(category).then(articles => {
+      fetchAllArticles().then(articles => {
         setArticles(articles)
-        setLoading(false)
 
         if (articles.length > 0) {
           setArticle(articles[0])
@@ -38,23 +42,11 @@ export default function App() {
           setArticle(null)
           setCurrentArticleIndex(0)
         }
+
+        setLoading(false)
       })
     }
   }, [user, category])
-
-  function navigateToNextArticle() {
-    if (currentArticleIndex < articles.length - 1) {
-      setCurrentArticleIndex(currentArticleIndex + 1)
-      setArticle(articles[currentArticleIndex + 1])
-    }
-  }
-
-  function navigateToPreviousArticle() {
-    if (currentArticleIndex > 0) {
-      setCurrentArticleIndex(currentArticleIndex - 1)
-      setArticle(articles[currentArticleIndex - 1])
-    }
-  }
 
   // Adds inputed article to "database" *then* to the internal React state.
   async function addArticle({ title, body, category, file }) {
@@ -82,40 +74,53 @@ export default function App() {
   return (
     <div className="App">
       {/* Header that contains blog name, article categories, and user login */}
-      <Header
-        article={article}
-        setCategory={setCategory}
-        user={user}
-        setReading={setReading}
-        setCurrentPage={setCurrentPage}
-      />
+      <Header article={article} setCategory={setCategory} user={user} setReading={setReading} />
 
       {!user ? (
+        // Login page
         <Login />
       ) : writing ? (
         // Article entry that displays when new article button is clicked
         <ArticleEntry addArticle={addArticle} setWriting={setWriting} />
       ) : reading ? (
-        // Article content that shows when an article or category is selected
+        // Article content
         <Article
           article={article}
-          navigateToNextArticle={navigateToNextArticle}
-          navigateToPreviousArticle={navigateToPreviousArticle}
           currentArticleIndex={currentArticleIndex}
-          articles={articles}
+          articles={category !== 'all' ? articles.filter(a => a.category === category) : articles}
           setArticle={setArticle}
           deleteArticle={deleteArticle}
           setReading={setReading}
           setWriting={setWriting}
           loading={loading}
+          category={category}
+          setCurrentArticleIndex={setCurrentArticleIndex}
         />
-      ) : currentPage === 'recipes' ? (
-        <RecipePage articles={articles} setArticle={setArticle} setReading={setReading} />
-      ) : currentPage === 'lifestyle' ? (
-        <LifestylePage articles={articles} setArticle={setArticle} setReading={setReading} />
-      ) : currentPage === 'home' ? (
-        <HomePage articles={articles} setArticle={setArticle} setReading={setReading} setCurrentPage={setCurrentPage} />
-      ) : currentPage === 'all' ? (
+      ) : category === 'none' ? (
+        // Home page
+        <HomePage
+          articles={articles}
+          setArticle={setArticle}
+          setReading={setReading}
+          setCategory={setCategory}
+          setCurrentArticleIndex={setCurrentArticleIndex}
+        />
+      ) : category === 'recipes' ? (
+        // Recipe category landing page
+        <RecipePage
+          articles={articles.filter(a => a.category === category)}
+          setArticle={setArticle}
+          setReading={setReading}
+        />
+      ) : category === 'lifestyle' ? (
+        // Lifestyle category landing page
+        <LifestylePage
+          articles={articles.filter(a => a.category === category)}
+          setArticle={setArticle}
+          setReading={setReading}
+        />
+      ) : category === 'all' ? (
+        // Landing page for when all articles are selected
         <AllPage articles={articles} setArticle={setArticle} setReading={setReading} />
       ) : (
         ''

@@ -3,15 +3,14 @@ import ArticleContent from './ArticleContent'
 
 export default function Article({
   article,
-  navigateToNextArticle,
-  navigateToPreviousArticle,
   currentArticleIndex,
   articles,
   setArticle,
   deleteArticle,
   setReading,
   setWriting,
-  loading
+  loading,
+  setCurrentArticleIndex
 }) {
   return (
     <article>
@@ -20,14 +19,14 @@ export default function Article({
       <ArticleContent
         className="article-content"
         article={article}
-        navigateToNextArticle={navigateToNextArticle}
-        navigateToPreviousArticle={navigateToPreviousArticle}
         currentArticleIndex={currentArticleIndex}
         articles={articles}
         setReading={setReading}
         deleteArticle={deleteArticle}
         setWriting={setWriting}
         loading={loading}
+        setArticle={setArticle}
+        setCurrentArticleIndex={setCurrentArticleIndex}
       />
     </article>
   )

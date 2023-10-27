@@ -1,6 +1,6 @@
 import LoadingImage from './LoadingImage'
 
-export default function HomePage({ articles, setArticle, setReading, setCurrentPage, handleImagesLoad }) {
+export default function HomePage({ articles, setArticle, setReading, setCategory, setCurrentArticleIndex }) {
   return (
     <div className="home">
       <h1 className="home-title">
@@ -12,11 +12,11 @@ export default function HomePage({ articles, setArticle, setReading, setCurrentP
       <div className="home-links">
         {!articles
           ? 'No articles'
-          : articles.slice(0, 3).map(a => (
+          : articles.slice(0, 3).map((a, i) => (
               <span
                 className="home-element-inner"
                 key={a.id}
-                onClick={() => setArticle(a) & setReading(true) & setCurrentPage('all')}
+                onClick={() => setArticle(a) & setReading(true) & setCategory('all') & setCurrentArticleIndex(i)}
               >
                 {a.title}
               </span>
@@ -28,7 +28,6 @@ export default function HomePage({ articles, setArticle, setReading, setCurrentP
         src="/fall-leaf.png"
         alt="fall leaf"
       />
-      {/* <img className="home-img falling-leaf" src="/fall-leaf.png" alt="fall leaf" onLoad={handleImagesLoad}></img> */}
     </div>
   )
 }

@@ -2,13 +2,13 @@ import LoadingImage from './LoadingImage'
 
 export default function ArticleContent({
   article,
-  navigateToNextArticle,
-  navigateToPreviousArticle,
   currentArticleIndex,
   articles,
   setReading,
   deleteArticle,
-  setWriting
+  setWriting,
+  setArticle,
+  setCurrentArticleIndex
 }) {
   let articleLines = ''
 
@@ -17,6 +17,22 @@ export default function ArticleContent({
 
     // Map over the array of lines to create a list of React elements
     articleLines = lines.map((line, index) => <p key={index}>{line}</p>)
+  }
+
+  // Increments the article index
+  function navigateToNextArticle() {
+    if (currentArticleIndex < articles.length - 1) {
+      setCurrentArticleIndex(currentArticleIndex + 1)
+      setArticle(articles[currentArticleIndex + 1])
+    }
+  }
+
+  // Decrements the article index
+  function navigateToPreviousArticle() {
+    if (currentArticleIndex > 0) {
+      setCurrentArticleIndex(currentArticleIndex - 1)
+      setArticle(articles[currentArticleIndex - 1])
+    }
   }
 
   return (
