@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useAuthentication } from '../services/authService'
-import {
-  createArticle,
-  removeArticle,
-  fetchAllArticles,
-  filterArticlesByCategory,
-  uploadImageToStorage
-} from '../services/articleService'
+import { createArticle, removeArticle, fetchAllArticles, uploadImageToStorage } from '../services/articleService'
 
 import './App.css'
 import AllPage from './AllPage.js'
@@ -19,13 +13,13 @@ import Login from './Login.js'
 import RecipePage from './RecipePage.js'
 
 export default function App() {
-  const [articles, setArticles] = useState([])
   const [article, setArticle] = useState([])
-  const [writing, setWriting] = useState(false)
-  const [reading, setReading] = useState(false)
+  const [articles, setArticles] = useState([])
   const [category, setCategory] = useState('none')
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [reading, setReading] = useState(false)
+  const [writing, setWriting] = useState(false)
   const user = useAuthentication()
 
   useEffect(() => {
@@ -71,6 +65,11 @@ export default function App() {
     }
   }
 
+  // Filters articles down to those in the selected category
+  function filterArticlesByCategory(category) {
+    return articles.filter(a => a.category === category)
+  }
+
   return (
     <div className="App">
       {/* Header that contains blog name, article categories, and user login */}
@@ -87,7 +86,7 @@ export default function App() {
         <Article
           article={article}
           currentArticleIndex={currentArticleIndex}
-          articles={category !== 'all' ? articles.filter(a => a.category === category) : articles}
+          articles={category !== 'all' ? filterArticlesByCategory(category) : articles}
           setArticle={setArticle}
           deleteArticle={deleteArticle}
           setReading={setReading}
@@ -107,15 +106,11 @@ export default function App() {
         />
       ) : category === 'recipes' ? (
         // Recipe category landing page
-        <RecipePage
-          articles={articles.filter(a => a.category === category)}
-          setArticle={setArticle}
-          setReading={setReading}
-        />
+        <RecipePage articles={filterArticlesByCategory('recipes')} setArticle={setArticle} setReading={setReading} />
       ) : category === 'lifestyle' ? (
         // Lifestyle category landing page
         <LifestylePage
-          articles={articles.filter(a => a.category === category)}
+          articles={filterArticlesByCategory('lifestyle')}
           setArticle={setArticle}
           setReading={setReading}
         />

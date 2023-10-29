@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&family=Jacques+Francois+Shadow&family=Josefin+Sans:wght@100;400&family=Open+Sans:wght@500&display=swap');
 
+/* Base Styles */
 .App {
   display: grid;
   grid-template-rows: 94px auto;
@@ -43,6 +44,16 @@ header span:hover {
 .header-sign-in-button {
   justify-self: right;
   grid-column: 3;
+}
+
+.login-button {
+  grid-row: 3;
+  background-color: red;
+  color: white;
+  border: solid white;
+  border-radius: 1em;
+  font-size: 1em;
+  align-self: flex-start;
 }
 
 /* Article Entry Formatting */
@@ -299,8 +310,10 @@ article-content {
 /* Login Page Formatting */
 .login {
   display: grid;
-  grid-template-rows: 15% 10% 5% auto;
+  grid-template-rows: 20% 10% 15% auto;
   justify-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .login-title {
@@ -311,16 +324,6 @@ article-content {
 .login-label {
   align-self: flex-start;
   grid-row: 2;
-}
-
-.login-button {
-  grid-row: 3;
-  background-color: red;
-  color: white;
-  border: solid white;
-  border-radius: 1em;
-  font-size: 1em;
-  align-self: flex-start;
 }
 
 .login-page-button {
@@ -359,7 +362,7 @@ img.falling-leaf:active {
   }
 }
 
-/* Loading Spinner */
+/* Loading Image */
 .loading-image {
   display: flex;
   align-items: center;

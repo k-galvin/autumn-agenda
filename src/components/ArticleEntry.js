@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
 export default function ArticleEntry({ addArticle, setWriting }) {
-  const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [category, setCategory] = useState('all')
+  const [error, setError] = useState(null)
   const [file, setFile] = useState(null)
   const [imageUrl, setImageUrl] = useState(null)
-  const [error, setError] = useState(null)
+  const [title, setTitle] = useState('')
 
   function submit(e) {
     setError(null)

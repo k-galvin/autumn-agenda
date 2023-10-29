@@ -37,7 +37,6 @@ export default function ArticleContent({
 
   return (
     <article-content>
-      {/* Article Heading and Close Button */}
       <div className="top-row">
         {/* Article Heading */}
         <div className="article-heading">
@@ -50,6 +49,7 @@ export default function ArticleContent({
           {/* Date Posted */}
           <p className="row">{`Posted: ${article.date.toDate().toString().slice(0, 10)}`}</p>
         </div>
+
         {/* Close Article Button */}
         <button
           className="close-button material-icon-button"
@@ -71,6 +71,10 @@ export default function ArticleContent({
             alt="blog-img"
           />
         )}
+
+        {/* Article Body */}
+        <div className="article-text">{articleLines}</div>
+
         {/* Previous Article Button */}
         <button
           className="back-button material-icon-button"
@@ -79,9 +83,6 @@ export default function ArticleContent({
         >
           <i className="material-icons">chevron_left</i>
         </button>
-
-        {/* Article Body */}
-        <div className="article-text">{articleLines}</div>
 
         {/* Next Article Button */}
         <button
