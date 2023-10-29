@@ -10,7 +10,7 @@ export default function HomePage({ articles, setArticle, setReading, setCategory
         <p className="home-element-inner">Check out our most recent article:</p>
       </h2>
       <div className="home-links">
-        {!articles || articles.length == 0 ? (
+        {!articles || articles.length === 0 ? (
           'No articles'
         ) : (
           <p

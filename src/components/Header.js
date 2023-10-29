@@ -4,7 +4,7 @@ export default function Header({ setCategory, user, setReading }) {
   return (
     <header>
       <div className="header-links">
-        <span
+        <p
           className="header-item"
           onClick={() => {
             setCategory('none')
@@ -12,8 +12,8 @@ export default function Header({ setCategory, user, setReading }) {
           }}
         >
           AUTUMN AGENDA
-        </span>
-        <span
+        </p>
+        <p
           className="header-item"
           onClick={() => {
             setCategory('recipes')
@@ -21,8 +21,8 @@ export default function Header({ setCategory, user, setReading }) {
           }}
         >
           Recipes
-        </span>
-        <span
+        </p>
+        <p
           className="header-item"
           onClick={() => {
             setCategory('lifestyle')
@@ -30,8 +30,8 @@ export default function Header({ setCategory, user, setReading }) {
           }}
         >
           Lifestyle
-        </span>
-        <span
+        </p>
+        <p
           className="header-item"
           onClick={() => {
             setCategory('all')
@@ -39,7 +39,7 @@ export default function Header({ setCategory, user, setReading }) {
           }}
         >
           All Articles
-        </span>
+        </p>
       </div>
       {!user ? (
         <div className="header-sign-in-button">

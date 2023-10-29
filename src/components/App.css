@@ -3,8 +3,9 @@
 /* Base Styles */
 .App {
   display: grid;
-  grid-template-rows: 94px auto;
-  height: 100vh;
+  grid-template-rows: max-content auto;
+  min-height: 100vh;
+  min-width: 100vw;
   overflow: scroll;
   font-family: 'Josefin Sans', sans;
   background-size: cover;
@@ -15,30 +16,28 @@
 /* Header Formatting */
 header {
   display: grid;
-  grid-template-columns: auto auto 30%;
+  grid-template-columns: auto auto;
   background-color: #e98604;
   color: white;
-  padding: 10px 15px;
+  padding: 2em 1em;
   align-items: center;
-  overflow: hidden;
   font-size: 1.2em;
 }
 
-header span:hover {
+header p:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
 .header-item {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  padding: 0 0.5em;
+  line-height: 1;
+  margin: 0;
 }
 
 .header-links {
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
 }
 
 .header-sign-in-button {
@@ -96,6 +95,9 @@ form textarea {
   color: blanchedalmond;
   padding: 1em;
   grid-column: 1;
+  overflow: hidden;
+  padding-right: 10em;
+  margin-right: 1em;
 }
 
 nav p:hover {
@@ -103,17 +105,11 @@ nav p:hover {
   cursor: pointer;
 }
 
-.nav-item {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 /* Article Formatting */
 article {
   grid-row: 2;
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: max-content auto;
   grid-template-rows: 100%;
 }
 
@@ -175,7 +171,7 @@ article-content {
 .topic-page {
   grid-row: 2;
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: max-content auto;
   grid-template-rows: 100%;
 }
 
