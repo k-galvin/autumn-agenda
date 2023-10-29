@@ -46,6 +46,13 @@ header span:hover {
   grid-column: 3;
 }
 
+.header-sign-in-button :hover {
+  background-color: white;
+  color: red;
+  border: solid red;
+  border-radius: 1em;
+}
+
 .login-button {
   grid-row: 3;
   background-color: red;
@@ -253,7 +260,7 @@ article-content {
 /* Home Page Formatting */
 .home {
   display: grid;
-  grid-template-rows: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
   grid-template-columns: auto;
   justify-content: center;
   align-content: start;
@@ -261,21 +268,26 @@ article-content {
   background-size: cover;
 }
 
-.home-body {
-  grid-row: 2;
-  grid-column: 2;
-  margin: 0;
-  justify-self: center;
-  padding: 1em;
-}
-
 .home-title {
   grid-row: 1;
   grid-column: 2;
-  margin-top: 1em;
-  margin-bottom: 0;
+  margin: 0;
+  margin-top: 0.8em;
+}
+
+.home-body {
+  grid-row: 2;
+  grid-column: 2;
   justify-self: center;
-  padding: 1em;
+  margin: 0;
+}
+
+.home-links {
+  grid-row: 3;
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
 }
 
 .home-element-inner {
@@ -283,14 +295,6 @@ article-content {
   padding: 0.3em;
   padding-bottom: 0.1em;
   border-radius: 0.2em;
-}
-
-.home-links {
-  grid-row: 3;
-  grid-column: 2;
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 1em;
 }
 
 .home-img-container {
@@ -302,7 +306,7 @@ article-content {
   justify-content: center;
 }
 
-.home-links span:hover {
+.home-links p:hover {
   text-decoration: underline;
   cursor: pointer;
 }
@@ -329,12 +333,16 @@ article-content {
 .login-page-button {
   grid-row: 3;
   grid-column: 1;
+  border-radius: 1em;
+  font-size: 1em;
+  align-self: center;
+}
+
+.login-page-button :hover {
   background-color: white;
   color: red;
   border: solid red;
   border-radius: 1em;
-  font-size: 1em;
-  align-self: center;
 }
 
 /* Leaf Image Transition */

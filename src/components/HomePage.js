@@ -4,16 +4,16 @@ export default function HomePage({ articles, setArticle, setReading, setCategory
   return (
     <div className="home">
       <h1 className="home-title">
-        <span className="home-element-inner">Welcome to Autumn Agenda!</span>
+        <p className="home-element-inner">Welcome to Autumn Agenda!</p>
       </h1>
       <h2 className="home-body">
-        <span className="home-element-inner">Check out our most recent article:</span>
+        <p className="home-element-inner">Check out our most recent article:</p>
       </h2>
       <div className="home-links">
         {!articles || articles.length == 0 ? (
           'No articles'
         ) : (
-          <span
+          <p
             className="home-element-inner"
             onClick={() => {
               setArticle(articles[0])
@@ -22,7 +22,7 @@ export default function HomePage({ articles, setArticle, setReading, setCategory
             }}
           >
             {articles[0].title}
-          </span>
+          </p>
         )}
       </div>
       <LoadingImage
