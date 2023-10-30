@@ -106,17 +106,23 @@ export default function App() {
         />
       ) : category === 'recipes' ? (
         // Recipe category landing page
-        <RecipePage articles={filterArticlesByCategory('recipes')} setArticle={setArticle} setReading={setReading} />
+        <RecipePage
+          articles={filterArticlesByCategory('recipes')}
+          setWriting={setWriting}
+          setArticle={setArticle}
+          setReading={setReading}
+        />
       ) : category === 'lifestyle' ? (
         // Lifestyle category landing page
         <LifestylePage
           articles={filterArticlesByCategory('lifestyle')}
           setArticle={setArticle}
           setReading={setReading}
+          setWriting={setWriting}
         />
       ) : category === 'all' ? (
         // Landing page for when all articles are selected
-        <AllPage articles={articles} setArticle={setArticle} setReading={setReading} />
+        <AllPage articles={articles} setArticle={setArticle} setReading={setReading} setWriting={setWriting} />
       ) : (
         ''
       )}

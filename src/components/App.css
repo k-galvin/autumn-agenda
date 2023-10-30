@@ -89,6 +89,10 @@ form textarea {
   grid-template-columns: auto auto auto auto auto auto 5%;
 }
 
+.article-entry-img {
+  max-width: 20vw;
+}
+
 /* Nav Bar Formatting */
 .nav {
   background-color: #5c4033;

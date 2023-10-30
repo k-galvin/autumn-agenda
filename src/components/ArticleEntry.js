@@ -50,7 +50,7 @@ export default function ArticleEntry({ addArticle, setWriting }) {
           <option value="recipes">Recipes</option>
           <option value="lifestyle">Lifestyle</option>
         </select>
-        {imageUrl && <img src={imageUrl} alt="blog-img" />}
+        {imageUrl && <img className="article-entry-img" src={imageUrl} alt="blog-img" />}
         <button type="submit">Create</button>
       </form>
     </div>

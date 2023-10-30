@@ -11,7 +11,7 @@ export default function HomePage({ articles, setArticle, setReading, setCategory
       </h2>
       <div className="home-links">
         {!articles || articles.length === 0 ? (
-          'No articles'
+          <p className="home-element-inner">No articles</p>
         ) : (
           <p
             className="home-element-inner"

@@ -1,6 +1,6 @@
 import LoadingImage from './LoadingImage'
 import Nav from './Nav'
-export default function AllPage({ articles, setArticle, setReading }) {
+export default function AllPage({ articles, setArticle, setReading, setWriting }) {
   return (
     <div className="topic-page">
       <Nav articles={articles} setArticle={setArticle} setReading={setReading} />
@@ -13,6 +13,10 @@ export default function AllPage({ articles, setArticle, setReading }) {
           src="/tea.png"
           alt="tea-cup"
         />
+        {/* Create Article Buttons */}
+        <button className="create-button" onClick={() => setWriting(true)}>
+          New Article
+        </button>
       </div>
     </div>
   )

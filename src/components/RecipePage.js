@@ -1,6 +1,6 @@
 import Nav from './Nav'
 import LoadingImage from './LoadingImage'
-export default function RecipePage({ articles, setArticle, setReading }) {
+export default function RecipePage({ articles, setArticle, setReading, setWriting }) {
   return (
     <div className="topic-page">
       <Nav articles={articles} setArticle={setArticle} setReading={setReading} />
@@ -13,6 +13,10 @@ export default function RecipePage({ articles, setArticle, setReading }) {
           src="/apple-pie.png"
           alt="apple-pie"
         />
+        {/* Create Article Buttons */}
+        <button className="create-button" onClick={() => setWriting(true)}>
+          New Article
+        </button>
       </div>
     </div>
   )

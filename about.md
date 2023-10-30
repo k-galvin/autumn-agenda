@@ -1,8 +1,14 @@
-Added Features:
+This blog web-app helps get the user in the autumn spirit by providing them with ideas for enjoying the season.
 
-- Delete articles
-- Return to home by pressing on blog title
-- Filter articles by category
-- Cancel Entries
-- Page through articles in given category
-- Upload images
+Features that go beyond the bare-bones-blog include:
+
+- Delete a selected article.
+- Return to home by pressing on blog title.
+- Filter articles by category using categories in header.
+- Cancel Entries by pressing x icon.
+- Page through articles in given category using previous/next buttons.
+- Upload images in article entry.
+- Custom favicon of a leaf image.
+
+Link to Deployed Web-App:
+https://fir-backed-k-galvin.web.app/
