@@ -50,6 +50,24 @@ export default function ArticleContent({
           <p className="row">{`Posted: ${article.date.toDate().toString().slice(0, 10)}`}</p>
         </div>
 
+        {/* Previous Article Button */}
+        <button
+          className="back-button material-icon-button"
+          onClick={navigateToPreviousArticle}
+          disabled={currentArticleIndex === 0}
+        >
+          <i className="material-icons">chevron_left</i>
+        </button>
+
+        {/* Next Article Button */}
+        <button
+          className="next-button material-icon-button"
+          onClick={navigateToNextArticle}
+          disabled={currentArticleIndex === articles.length - 1}
+        >
+          <i className="material-icons">chevron_right</i>
+        </button>
+
         {/* Close Article Button */}
         <button
           className="close-button material-icon-button"
@@ -74,24 +92,6 @@ export default function ArticleContent({
 
         {/* Article Body */}
         <div className="article-text">{articleLines}</div>
-
-        {/* Previous Article Button */}
-        <button
-          className="back-button material-icon-button"
-          onClick={navigateToPreviousArticle}
-          disabled={currentArticleIndex === 0}
-        >
-          <i className="material-icons">chevron_left</i>
-        </button>
-
-        {/* Next Article Button */}
-        <button
-          className="next-button material-icon-button"
-          onClick={navigateToNextArticle}
-          disabled={currentArticleIndex === articles.length - 1}
-        >
-          <i className="material-icons">chevron_right</i>
-        </button>
 
         {/* Delete Article Buttons */}
         <button className="delete-button" onClick={deleteArticle}>

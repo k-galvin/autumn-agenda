@@ -3,9 +3,12 @@ import LoadingImage from './LoadingImage'
 export default function HomePage({ articles, setArticle, setReading, setCategory }) {
   return (
     <div className="home">
+      {/* Title */}
       <h1 className="home-title">
         <p className="home-element-inner">Welcome to Autumn Agenda!</p>
       </h1>
+
+      {/* Recent Article Link */}
       <h2 className="home-body">
         <p className="home-element-inner">Check out our most recent article:</p>
       </h2>
@@ -25,6 +28,8 @@ export default function HomePage({ articles, setArticle, setReading, setCategory
           </p>
         )}
       </div>
+
+      {/* Fall Leaf Image */}
       <LoadingImage
         containerClassName={'home-img-container'}
         imgClassName={'falling-leaf'}

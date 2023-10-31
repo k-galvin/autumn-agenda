@@ -30,6 +30,7 @@ export default function ArticleEntry({ addArticle, setWriting }) {
 
   return (
     <div className="article-entry">
+      {/* Close Entry Pop-up Button */}
       <button
         className="close-button material-icon-button"
         onClick={() => {
@@ -38,19 +39,27 @@ export default function ArticleEntry({ addArticle, setWriting }) {
       >
         <i className="material-icons">close</i>
       </button>
+      {/* Form for submitting entered article */}
       <form onSubmit={submit}>
+        {/* Error message that displays if not all required fields are supplied */}
         {error && <p className="error">{error}</p>}
         Title
+        {/* Title Input */}
         <input value={title} onChange={e => setTitle(e.target.value)} />
         Body
+        {/* Body Input */}
         <textarea rows="8" value={body} onChange={e => setBody(e.target.value)}></textarea>
+        {/* Image Input */}
         <input type="file" onChange={handleFileChange} />
+        {/* Category Input */}
         <select value={category} onChange={e => setCategory(e.target.value)}>
           <option value="all">All Categories</option>
           <option value="recipes">Recipes</option>
           <option value="lifestyle">Lifestyle</option>
         </select>
+        {/* Image Preview */}
         {imageUrl && <img className="article-entry-img" src={imageUrl} alt="blog-img" />}
+        {/* Submit Button */}
         <button type="submit">Create</button>
       </form>
     </div>

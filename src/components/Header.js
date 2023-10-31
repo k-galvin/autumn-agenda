@@ -4,6 +4,7 @@ export default function Header({ setCategory, user, setReading }) {
   return (
     <header>
       <div className="header-links">
+        {/* Home Page Link */}
         <p
           className="header-item"
           onClick={() => {
@@ -13,6 +14,8 @@ export default function Header({ setCategory, user, setReading }) {
         >
           AUTUMN AGENDA
         </p>
+
+        {/* Recipe Page Link */}
         <p
           className="header-item"
           onClick={() => {
@@ -22,6 +25,8 @@ export default function Header({ setCategory, user, setReading }) {
         >
           Recipes
         </p>
+
+        {/* Lifestyle Page Link */}
         <p
           className="header-item"
           onClick={() => {
@@ -31,6 +36,8 @@ export default function Header({ setCategory, user, setReading }) {
         >
           Lifestyle
         </p>
+
+        {/* All Articles Page Link */}
         <p
           className="header-item"
           onClick={() => {
@@ -41,6 +48,8 @@ export default function Header({ setCategory, user, setReading }) {
           All Articles
         </p>
       </div>
+
+      {/* User name and Login/Signout */}
       {!user ? (
         <div className="header-sign-in-button">
           <SignIn />

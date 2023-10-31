@@ -14,8 +14,16 @@ export default function Article({
 }) {
   return (
     <article>
-      <Nav articles={articles} setArticle={setArticle} setReading={setReading} loading={loading} />
+      {/* Nav Bar */}
+      <Nav
+        articles={articles}
+        setArticle={setArticle}
+        setReading={setReading}
+        loading={loading}
+        setCurrentArticleIndex={setCurrentArticleIndex}
+      />
 
+      {/* Article Content */}
       <ArticleContent
         className="article-content"
         article={article}

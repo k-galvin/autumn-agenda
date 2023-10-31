@@ -17,6 +17,7 @@ export default function App() {
   const [articles, setArticles] = useState([])
   const [category, setCategory] = useState('none')
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const [reading, setReading] = useState(false)
   const [writing, setWriting] = useState(false)
@@ -44,24 +45,34 @@ export default function App() {
 
   // Adds inputed article to "database" *then* to the internal React state.
   async function addArticle({ title, body, category, file }) {
-    const imageUrl = await uploadImageToStorage(file)
+    try {
+      const imageUrl = await uploadImageToStorage(file)
 
-    createArticle({ title, body, category, imageUrl }).then(newArticle => {
-      setArticle(newArticle)
-      setArticles([newArticle, ...articles])
-      setWriting(false)
-      setCategory(category)
-    })
+      createArticle({ title, body, category, imageUrl }).then(newArticle => {
+        setArticle(newArticle)
+        setArticles([newArticle, ...articles])
+        setWriting(false)
+        setCategory(category)
+      })
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   // Removes selected article from the "database" and updates the internal React state.
   function deleteArticle() {
     if (article) {
       removeArticle(article.id)
-      setArticle(null)
-      setArticles(articles.filter(a => a.id !== article.id))
-      setCategory('all')
-      setCurrentArticleIndex(0)
+        .then(() => {
+          setArticle(null)
+          setArticles(articles.filter(a => a.id !== article.id))
+          setCategory('all')
+          setCurrentArticleIndex(0)
+          setReading(false)
+        })
+        .catch(error => {
+          setError(error.message)
+        })
     }
   }
 
@@ -74,6 +85,8 @@ export default function App() {
     <div className="App">
       {/* Header that contains blog name, article categories, and user login */}
       <Header article={article} setCategory={setCategory} user={user} setReading={setReading} />
+
+      {error && <div className="error-message">{error}</div>}
 
       {!user ? (
         // Login page
@@ -111,6 +124,7 @@ export default function App() {
           setWriting={setWriting}
           setArticle={setArticle}
           setReading={setReading}
+          setCurrentArticleIndex={setCurrentArticleIndex}
         />
       ) : category === 'lifestyle' ? (
         // Lifestyle category landing page
@@ -119,10 +133,17 @@ export default function App() {
           setArticle={setArticle}
           setReading={setReading}
           setWriting={setWriting}
+          setCurrentArticleIndex={setCurrentArticleIndex}
         />
       ) : category === 'all' ? (
         // Landing page for when all articles are selected
-        <AllPage articles={articles} setArticle={setArticle} setReading={setReading} setWriting={setWriting} />
+        <AllPage
+          articles={articles}
+          setArticle={setArticle}
+          setReading={setReading}
+          setWriting={setWriting}
+          setCurrentArticleIndex={setCurrentArticleIndex}
+        />
       ) : (
         ''
       )}
